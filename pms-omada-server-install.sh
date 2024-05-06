@@ -51,7 +51,7 @@ sudo apt install -y ./Omada_SDN_Controller_v5.13.30.8_linux_x64.deb
 # Samba File Server
 echo "[global]" >> /etc/samba/smb.conf
 echo "server role = standalone server" >> /etc/samba/smb.conf
-echo "server string = Acegaming" >> /etc/samba/smb.conf
+echo "server string = Dominique" >> /etc/samba/smb.conf
 echo "workgroup = WORKGROUP" >> /etc/samba/smb.conf
 echo "netbios name = amd" >> /etc/samba/smb.conf
 echo "security = user" >> /etc/samba/smb.conf
@@ -69,7 +69,7 @@ echo         "read only = yes" >> /etc/samba/smbshared.conf
 echo         "availbale = yes" >> /etc/samba/smbshared.conf
 echo         "public = no" >> /etc/samba/smbshared.conf
 echo         "writable = yes" >> /etc/samba/smbshared.conf
-echo         "valid users = acegaming" >> /etc/samba/smbshared.conf
+echo         "valid users = dom" >> /etc/samba/smbshared.conf
 echo "[FILES]" >> /etc/samba/smbshared.conf
 echo         "comment = FILES Share" >> /etc/samba/smbshared.conf
 echo         "path = /mnt/Data/FILES" >> /etc/samba/smbshared.conf
@@ -79,7 +79,7 @@ echo         "read only = yes" >> /etc/samba/smbshared.conf
 echo         "available = yes" >> /etc/samba/smbshared.conf
 echo         "public = no" >> /etc/samba/smbshared.conf
 echo         "writable = yes" >> /etc/samba/smbshared.conf
-echo         "valid users = acegaming" >> /etc/samba/smbshared.conf
+echo         "valid users = dom" >> /etc/samba/smbshared.conf
 
 # SSH Port
 echo "Port 2234" >> /etc/ssh/sshd_config
@@ -124,8 +124,8 @@ sudo systemctl start smb
 sudo systemctl enable nmb
 sudo systemctl start nmb
 sudo systemctl enable ufw --now
-# sudo chown -R acegaming:acegaming /mnt/HDD
-sudo chown -R acegaming:acegaming /mnt/Data
+# sudo chown -R dom:dom /mnt/HDD
+sudo chown -R dom:dom /mnt/Data
 
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
 
