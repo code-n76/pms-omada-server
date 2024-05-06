@@ -90,9 +90,9 @@ echo "Port 2234" >> /etc/ssh/sshd_config
 echo "# /dev/sdb was on /mnt/Data" >> /etc/fstab
 echo "UUID=ce10c414-1e36-497c-9568-9b3d372ef7dd /mnt/Data btrfs defaults 0 0" >> /etc/fstab
 # mkdir /mnt/HDD
-mkdir /mnt/Data
+sudo mkdir /mnt/Data
 sudo systemctl daemon-reload
-mount -a
+sudo mount -a
 
 # Configure Firewall Rules
 sudo ufw limit 22/tcp                                                     # SSH (Secure Shell)
@@ -123,6 +123,8 @@ sudo systemctl enable smb
 sudo systemctl start smb
 sudo systemctl enable nmb
 sudo systemctl start nmb
+sudo systemctl enable smbd
+sudo systemctl start smbd
 sudo systemctl enable ufw --now
 # sudo chown -R dom:dom /mnt/HDD
 sudo chown -R dom:dom /mnt/Data
