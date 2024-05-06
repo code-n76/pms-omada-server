@@ -85,10 +85,10 @@ echo         "valid users = dom" >> /etc/samba/smbshared.conf
 echo "Port 2234" >> /etc/ssh/sshd_config
 
 # Mount Drives
-# echo "# /dev/sda was on /mnt/HDD" >> /etc/fstab
-# echo "UUID=d2c1a0ff-ec7a-4a7c-a7d4-f3f10d174487 /mnt/HDD btrfs defaults 0 0" >> /etc/fstab
+# echo "# /dev/sdb was on /mnt/Data" >> /etc/fstab
+# echo "UUID=241e8cb1-5860-4b72-b3ea-b0d06f840786 /mnt/Data btrfs defaults 0 0" >> /etc/fstab
 echo "# /dev/sdb was on /mnt/Data" >> /etc/fstab
-echo "UUID=241e8cb1-5860-4b72-b3ea-b0d06f840786 /mnt/Data btrfs defaults 0 0" >> /etc/fstab
+echo "UUID=ce10c414-1e36-497c-9568-9b3d372ef7dd /mnt/Data btrfs defaults 0 0" >> /etc/fstab
 # mkdir /mnt/HDD
 mkdir /mnt/Data
 sudo systemctl daemon-reload
