@@ -86,14 +86,10 @@ echo "Port 2234" >> /etc/ssh/sshd_config
 
 # Mount Drives
 echo "# /mnt/vol1 is the first hard drive added to the system" >> /etc/fstab
-echo "UUID=b4755649-eb47-4d5c-9c49-23ed99675b4c /mnt/vol1 ext4 defaults 0 0" >> /etc/fstab
+echo "UUID=1cdd09b5-5273-4827-bcae-882c0a71f595 /mnt/vol1 ext4 defaults 0 0" >> /etc/fstab
 mkdir /mnt/vol1
 sudo systemctl daemon-reload
 sudo mount -a
-
-# Create folder Shared
-mkdir /mnt/vol1/PMS
-mkdir /mnt/vol1/FILES
 
 # Configure Firewall Rules
 sudo ufw limit 22/tcp                                                     # SSH (Secure Shell)
@@ -124,7 +120,6 @@ sudo systemctl enable smbd
 sudo systemctl start smbd
 sudo systemctl enable ufw --now
 sudo chown -R dom:dom /mnt/vol1
-sudo chmod -R 777 /mnt/vol1
 
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
 
