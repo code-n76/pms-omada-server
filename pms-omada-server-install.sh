@@ -124,6 +124,7 @@ sudo systemctl enable smbd
 sudo systemctl start smbd
 sudo systemctl enable ufw --now
 sudo chown -R dom:dom /mnt/vol1
+sudo chmod -R 777 /mnt/vol1
 
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
 
