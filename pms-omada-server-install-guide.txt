@@ -1,0 +1,48 @@
+Task: pms-omada-server-install-guide
+
+**********REMOVE HARD DRIVE**********
+
+Steps:
+
+1. Connect bootable usb flash drive & boot
+
+2. Install Ubuntu Server LTS
+ - (Installation process)
+ - (remove installation media/ bootable usb)
+ - (shutdown the system to apply changes)
+
+3. Connect hard drive, turn on & create GPT Partition
+ - sudo su
+ - lsblk
+ - fdisk /dev/sdb
+ - g
+ - n (defaults)
+ - w
+
+4. Format to ext4 filesystem
+ - lsblk
+ - mkfs.ext4 /dev/sdb1
+
+5. Get UUID for /dev/sdb1 partition
+ - blkid /dev/sdb1
+ - (take a copy of UUID)
+
+6. Check git & vim if installed. If none, 
+ - apt install git vim -y
+
+7. Clone the repository & edit UUID
+ - git clone https://gitlab.com/code-n76/pms-omada-server.git
+ - vim pms-omada-server/pms-omada-server-install.sh
+ - (save)
+
+8. Run the installation script from repository
+ - sudo ./pms-omada-server/pms-omada-server-install.sh
+
+9. Create Shared folder
+ - sudo su
+ - mkdir /mnt/vol1/PMS
+ - mkdir /mnt/vol1/FILES
+
+10. Change mode folder permission & create smb password user
+ - chmod - R 777 /mnt/vol1
+ - sudo smbpasswd - a dom

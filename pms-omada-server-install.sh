@@ -11,14 +11,6 @@ echo deb [signed-by=/usr/share/keyrings/plex.gpg] https://downloads.plex.tv/repo
 sudo apt update -y
 sudo apt install plexmediaserver -y
 
-# Install Tautulli
-cd /opt
-sudo git clone https://github.com/Tautulli/Tautulli.git
-sudo addgroup tautulli && sudo adduser --system --no-create-home tautulli --ingroup tautulli
-sudo chown -R tautulli:tautulli /opt/Tautulli
-sudo cp /opt/Tautulli/init-scripts/init.systemd /lib/systemd/system/tautulli.service
-cd
-
 # Install Omada Software Controller
 # It is recommended to update repository and upgrade system before installing dependencies and omada software controller:
 sudo apt update; sudo apt upgrade -y
@@ -96,14 +88,13 @@ sudo ufw limit 22/tcp                                                     # SSH 
 sudo ufw allow 80/tcp                                                     # HTTP (Hypertext Transfer Protocol)
 sudo ufw allow 443/tcp                                                    # HTTPS (Hypertext Transfer Protocol Secure)
 sudo ufw allow 32400/tcp                                                  # Plex Media Server
-sudo ufw allow 8181/tcp                                                   # Tautulli Monitoring Plex Server
 sudo ufw allow 445/tcp                                                    # Samba
 sudo ufw allow 8088/tcp                                                   # Omada Controller
 sudo ufw allow 8843/tcp                                                   # Omada Controller
 sudo ufw allow 8043/tcp                                                   # Omada Controller
-sudo ufw allow 29810:29814/tcp						  # Omada Controller
+sudo ufw allow 29810:29814/tcp						                      # Omada Controller
 sudo ufw allow 29810/udp                                                  # Omada Controller
-sudo ufw allow 2234/tcp							  # SSH
+sudo ufw allow 2234/tcp							                          # SSH
 sudo ufw allow OpenSSH
 sudo ufw default deny incoming
 sudo ufw default allow outgoing
@@ -114,8 +105,6 @@ sudo ufw reload
 sudo systemctl enable plexmediaserver
 sudo systemctl start plexmediaserver
 sudo systemctl daemon-reload
-sudo systemctl enable tautulli
-sudo systemctl start tautulli
 sudo systemctl enable smbd
 sudo systemctl start smbd
 sudo systemctl enable ufw --now
