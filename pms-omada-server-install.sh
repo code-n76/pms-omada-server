@@ -59,10 +59,10 @@ echo "encrypt passwords = yes" >> /etc/samba/smb.conf
 echo "guest account = nobody" >> /etc/samba/smb.conf
 echo "name resolve order = bcast host" >> /etc/samba/smb.conf
 echo "include = /etc/samba/smbshared.conf" >> /etc/samba/smb.conf
-
+# My Added Shared Folders
 echo "[PMS]" >> /etc/samba/smbshared.conf
 echo         "comment = PMS Share" >> /etc/samba/smbshared.conf
-echo         "path = /mnt/Data/PMS" >> /etc/samba/smbshared.conf
+echo         "path = /mnt/vol1/PMS" >> /etc/samba/smbshared.conf
 echo         "browsable = yes" >> /etc/samba/smbshared.conf
 echo         "guest ok = yes" >> /etc/samba/smbshared.conf
 echo         "read only = yes" >> /etc/samba/smbshared.conf
@@ -72,7 +72,7 @@ echo         "writable = yes" >> /etc/samba/smbshared.conf
 echo         "valid users = dom" >> /etc/samba/smbshared.conf
 echo "[FILES]" >> /etc/samba/smbshared.conf
 echo         "comment = FILES Share" >> /etc/samba/smbshared.conf
-echo         "path = /mnt/Data/FILES" >> /etc/samba/smbshared.conf
+echo         "path = /mnt/vol1/FILES" >> /etc/samba/smbshared.conf
 echo         "browsable = yes" >> /etc/samba/smbshared.conf
 echo         "guest ok = yes" >> /etc/samba/smbshared.conf
 echo         "read only = yes" >> /etc/samba/smbshared.conf
@@ -85,14 +85,15 @@ echo         "valid users = dom" >> /etc/samba/smbshared.conf
 echo "Port 2234" >> /etc/ssh/sshd_config
 
 # Mount Drives
-# echo "# /dev/sdb was on /mnt/Data" >> /etc/fstab
-# echo "UUID=241e8cb1-5860-4b72-b3ea-b0d06f840786 /mnt/Data btrfs defaults 0 0" >> /etc/fstab
-echo "# /dev/sdb was on /mnt/Data" >> /etc/fstab
-echo "UUID=ce10c414-1e36-497c-9568-9b3d372ef7dd /mnt/Data btrfs defaults 0 0" >> /etc/fstab
-# mkdir /mnt/HDD
-sudo mkdir /mnt/Data
+echo "# /mnt/vol1 is the first hard drive added to the system" >> /etc/fstab
+echo "UUID=b4755649-eb47-4d5c-9c49-23ed99675b4c /mnt/vol1 ext4 defaults 0 0" >> /etc/fstab
+mkdir /mnt/vol1
 sudo systemctl daemon-reload
 sudo mount -a
+
+# Create folder Shared
+mkdir /mnt/vol1/PMS
+mkdir /mnt/vol1/FILES
 
 # Configure Firewall Rules
 sudo ufw limit 22/tcp                                                     # SSH (Secure Shell)
@@ -119,15 +120,10 @@ sudo systemctl start plexmediaserver
 sudo systemctl daemon-reload
 sudo systemctl enable tautulli
 sudo systemctl start tautulli
-sudo systemctl enable smb
-sudo systemctl start smb
-sudo systemctl enable nmb
-sudo systemctl start nmb
 sudo systemctl enable smbd
 sudo systemctl start smbd
 sudo systemctl enable ufw --now
-# sudo chown -R dom:dom /mnt/HDD
-sudo chown -R dom:dom /mnt/Data
+sudo chown -R dom:dom /mnt/vol1
 
 /bin/echo -e "\e[1;32mREBOOTING IN 5..4..3..2..1..\e[0m"
 
