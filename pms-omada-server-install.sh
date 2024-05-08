@@ -78,7 +78,7 @@ echo "Port 2234" >> /etc/ssh/sshd_config
 
 # Mount Drives
 echo "# /mnt/vol1 is the first hard drive added to the system" >> /etc/fstab
-echo "UUID=1cdd09b5-5273-4827-bcae-882c0a71f595 /mnt/vol1 ext4 defaults 0 0" >> /etc/fstab
+echo "UUID=f687764e-1ce9-4861-88a0-8264d7ca9944 /mnt/vol1 ext4 defaults 0 0" >> /etc/fstab
 mkdir /mnt/vol1
 sudo systemctl daemon-reload
 sudo mount -a
