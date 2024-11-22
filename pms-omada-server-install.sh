@@ -22,7 +22,7 @@ deb http://security.ubuntu.com/ubuntu focal-security main
 # Install libssl1.1 which is dependency for MongoDB 4.4
 sudo apt update
 sudo apt-get install libssl1.1
-wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
 sudo apt install -y ./libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
 
 # Install MongoDB
