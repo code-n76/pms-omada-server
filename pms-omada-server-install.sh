@@ -45,7 +45,7 @@ echo "[global]" >> /etc/samba/smb.conf
 echo "server role = standalone server" >> /etc/samba/smb.conf
 echo "server string = Dominique" >> /etc/samba/smb.conf
 echo "workgroup = WORKGROUP" >> /etc/samba/smb.conf
-echo "netbios name = amd" >> /etc/samba/smb.conf
+echo "netbios name = intel" >> /etc/samba/smb.conf
 echo "security = user" >> /etc/samba/smb.conf
 echo "encrypt passwords = yes" >> /etc/samba/smb.conf
 echo "guest account = nobody" >> /etc/samba/smb.conf
