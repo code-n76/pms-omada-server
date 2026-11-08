@@ -6,38 +6,25 @@ sudo apt install apt-transport-https curl wget python3-setuptools -y
 sudo apt install samba ufw git vim lm-sensors htop -y
 
 # Install Plex Media Server
-sudo wget -O- https://downloads.plex.tv/plex-keys/PlexSign.key | gpg --dearmor | sudo tee /usr/share/keyrings/plex.gpg
-echo deb [signed-by=/usr/share/keyrings/plex.gpg] https://downloads.plex.tv/repo/deb public main | sudo tee /etc/apt/sources.list.d/plexmediaserver.list
-sudo apt update -y
-sudo apt install plexmediaserver -y
-
-# Install Omada Software Controller
-# It is recommended to update repository and upgrade system before installing dependencies and omada software controller:
-sudo apt update; sudo apt upgrade -y
-
-# Adding focal-security to sources list
-echo "deb http://security.ubuntu.com/ubuntu focal-security main" | sudo tee /etc/apt/sources.list.d/focal-security.list
-deb http://security.ubuntu.com/ubuntu focal-security main
-
-# Install libssl1.1 which is dependency for MongoDB 4.4
+# Install required dependencies
 sudo apt update
-sudo apt-get install libssl1.1
-wget http://archive.ubuntu.com/ubuntu/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2.23_amd64.deb
-sudo apt install -y ./libssl1.1_1.1.1f-1ubuntu2.22_amd64.deb
+sudo apt install -y curl gnupg2
 
-# Install MongoDB
-sudo apt install -y software-properties-common
-wget -qO- https://www.mongodb.org/static/pgp/server-4.4.asc | sudo tee /etc/apt/trusted.gpg.d/mongodb-org-4.4.asc
-sudo add-apt-repository -y "deb [arch=amd64] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse"
-sudo apt install -y mongodb-org
+# Create the APT keyrings directory
+sudo install -d -m 0755 /etc/apt/keyrings
 
-# Install omada dependencies available over the repo (Java8, jsvc and curl)
-sudo apt install -y openjdk-8-jre-headless jsvc curl
+# Download and install the Plex signing key
+curl -fsSL https://downloads.plex.tv/plex-keys/PlexSign.v2.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/plexmediaserver.v2.gpg
 
-# Download and install Omada Software Controller
-# Omada SDN Software Controller v5.13.30.8
-wget https://static.tp-link.com/upload/software/2024/202402/20240227/Omada_SDN_Controller_v5.13.30.8_linux_x64.deb
-sudo apt install -y ./Omada_SDN_Controller_v5.13.30.8_linux_x64.deb
+# Add the official Plex repository
+echo "deb [signed-by=/etc/apt/keyrings/plexmediaserver.v2.gpg] https://repo.plex.tv/deb/ public main" | sudo tee /etc/apt/sources.list.d/plex.list
+
+# Update package lists
+sudo apt update
+
+# Install Plex Media Server
+sudo apt install -y plexmediaserver
+
 
 # CONFIGURATION
 # Samba File Server
@@ -89,11 +76,6 @@ sudo ufw allow 80/tcp                                                     # HTTP
 sudo ufw allow 443/tcp                                                    # HTTPS (Hypertext Transfer Protocol Secure)
 sudo ufw allow 32400/tcp                                                  # Plex Media Server
 sudo ufw allow 445/tcp                                                    # Samba
-sudo ufw allow 8088/tcp                                                   # Omada Controller
-sudo ufw allow 8843/tcp                                                   # Omada Controller
-sudo ufw allow 8043/tcp                                                   # Omada Controller
-sudo ufw allow 29810:29814/tcp						                      # Omada Controller
-sudo ufw allow 29810/udp                                                  # Omada Controller
 sudo ufw allow 2234/tcp							                          # SSH
 sudo ufw allow OpenSSH
 sudo ufw default deny incoming
